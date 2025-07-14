@@ -3,6 +3,21 @@
 #}
 {% extends "base.html" %}
 
+{% block meta %}
+
+{% if page.authors %}
+{% set authors = page.authors %}
+{% else %}
+{% set authors = [config.author] %}
+{% endif %}
+{% for author in authors %}
+{% for fedi in config.extra.fediverse_creator[author] | default(value=[]) %}
+<meta name="fediverse:creator" content="{{ fedi }}" />
+{% endfor %}
+{% endfor %}
+
+{% endblock meta %}
+
 {% block about %}
   {% if page.authors %}
   {% set authors = page.authors %}

@@ -82,6 +82,7 @@ license_cc_by = "CC BY"
 
 copyright_years = "2025"
 default_license = "reserved"
+fediverse_creator."Loskr AES" = ["@loskraes@tooting.ch"]
 
 mastodon_server = "tooting.ch"
 mastodon_user = "loskraes"

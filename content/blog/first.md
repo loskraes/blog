@@ -6,7 +6,7 @@ update = 2025-07-15
 description = "Description de mon premier article"
 #path = "asdf.html"
 #aliases = []
-authors = []
+authors = ["Loskr AES"]
 [extra]
 license = "cc_by"
 +++
