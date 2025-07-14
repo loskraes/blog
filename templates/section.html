@@ -1,0 +1,21 @@
+{#
+  vim: ft=htmldjango
+#}
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{% block title %}{{ section.title }}{% endblock title %}</h1>
+<ul>
+  {% for subsection in section.subsections %}
+  {% set subsection = get_section(path=subsection) %}
+  <li><a href="{{ subsection.permalink | safe}}">{{ subsection.title }}/</a></li>
+  {% endfor %}
+</ul>
+<ul>
+  {% for page in section.pages %}
+  <li><a href="{{ page.permalink | safe}}">{{ page.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock content %}
+
+

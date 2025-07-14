@@ -1,0 +1,81 @@
+{#
+vim: ft=htmldjango
+#}
+{%- macro active(k, set) -%}
+{% if k in set %} active {% endif -%}
+{% endmacro %}
+{%- set_global langs = [lang] %}
+{%- for lang, _ in config.languages %}
+  {%- set_global langs = langs | concat(with=lang) | sort %}
+{%- endfor %}
+{%- set section_page = section | default(value=page) %}
+{%- set translations = section_page.translations | group_by(attribute="lang") %}
+{%- set root = get_section(path="_index.md", lang=lang) %}
+{%- if section_page.ancestors | length < 2 %}
+{%- set sector = section_page.relative_path %}
+{%- else %}
+{%- set sector = section_page.ancestors.1 %}
+{%- endif -%}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% block meta %}
+    {% endblock meta %}
+    <title>{{ config.title }}</title>
+    <link href="{{ get_url(path="base.css") }}" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <a href="{{ root.permalink | escape_xml }}" class="sitename">{{ config.title }}</a>
+      <a 
+        href="{{ root.permalink | escape_xml }}"
+        class="{{ self::active(k=root.relative_path, set=[sector]) }}"
+        >{{ root.extra.name }}</a>
+      {% for section in root.subsections %}
+      {% set section = get_section(path=section, metadata_only=true) %}
+      <a
+        href="{{ section.permalink | escape_xml }}"
+        class="{{ self::active(k=section.relative_path, set=[sector] ) }}"
+        >{{ section.extra.name }}</a>
+      {% endfor %}
+
+      <span class="grow"></span>
+
+
+      {% for tr_lang in langs %}
+      {% if translations[tr_lang].0.permalink %}
+      <a
+          href="{{ translations[tr_lang].0.permalink }}"
+         class="{{ self::active(k=tr_lang, set=[lang]) }}"
+        >{{ tr_lang }}</a>
+      {% else %}
+      <span class="unavailable-lang">{{ tr_lang }}</span>
+      {% endif %}
+      {% endfor %}
+
+    </header>
+    <div class="page">
+      <section>
+        <aside>
+          {% block about %}{% endblock about %}
+        </aside>
+        {% block content %}{% endblock content %}
+
+
+        <pre>
+        {% set s = get_section(path="blog/_index.md", metadata_only=true) %}
+
+
+
+        {{ s | json_encode(pretty=true) }}
+        {% set ancestors = [section_page.relative_path, section_page.ancestors] %}
+        </pre>
+      </section>
+    </div>
+    <footer>
+      <span class="copyright">© {{ config.extra.copyright_years }} {{ config.author }}</span>
+    </footer>
+  </body>
+</html>

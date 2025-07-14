@@ -1,0 +1,80 @@
+@import "functions";
+@import "variables";
+@import "mixins/breakpoints";
+
+body {
+  margin: 0;
+}
+
+header,
+footer {
+  position: sticky;
+  background-color: tint-color(blue, 80);
+  box-shadow: 0px -1px 5px 1px tint-color(black, 50);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
+  padding-right: $header-footer-gap / 2;
+  padding-left: $header-footer-gap / 2;
+  gap: $header-footer-gap;
+
+  .sitename {
+    font-weight: bold;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a.active {
+    font-weight: bolder;
+  }
+
+  .unavailable-lang {
+    cursor: not-allowed;
+    font-weight: lighter;
+    text-decoration: line-through;
+  }
+
+  .grow {
+    flex-grow: 1;
+  }
+}
+
+header {
+  top: 0;
+  height: 2rem;
+}
+
+footer {
+  bottom: 0;
+}
+
+.page {
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: auto;
+
+  section {
+    background-color: tint-color(red, 80);
+
+    aside {
+      float: right;
+      clear: both;
+      background-color: tint-color(green, 80);
+    }
+  }
+}
+
+
+@each $breakpoint, $maxwidth in $container-max-widths {
+  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    .page {
+      width: $maxwidth;
+    }
+  }
+}

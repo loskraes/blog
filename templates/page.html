@@ -1,0 +1,38 @@
+{#
+  vim: ft=htmldjango
+#}
+{% extends "base.html" %}
+
+{% block about %}
+  {% if page.authors %}
+  {% set authors = page.authors %}
+  {% else %}
+  {% set authors = [config.author] %}
+  {% endif %}
+  {% set license = page.extra.license | default(value=config.extra.default_license) %}
+
+  Écrit le {{ page.date }} par {{ authors | join(sep=" & ") }} <br />
+  {% if page.updated %}
+  Modifié le {{ page.updated }} <br />
+  {% endif %}
+  License {{ trans(key="license_" ~ license, lang=lang) }} <br />
+  {{ page.word_count }} mots / {{ page.reading_time }} minutes <br />
+  
+  {% endblock about %}
+
+{% block content %}
+
+{% if page.toc.0.level != 1 %}
+<h1>{{ page.title }}</h1>
+{% endif %}
+{{ page.content | safe }}
+
+<pre>
+{{ page.toc[0].level == 1 | json_encode(pretty=true) }}
+</pre>
+
+<pre>
+{{ page | json_encode(pretty=true) }}
+</pre>
+{% endblock content %}
+

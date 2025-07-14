@@ -1,0 +1,13 @@
+{#
+  vim: ft=htmldjango
+#}
+{% extends "section.html" %}
+
+{% block meta %}
+<meta rel="me" href="https://{{ config.extra.mastodon_server }}/@{{ config.extra.mastodon_user }}" />
+{% endblock meta %}
+
+{% block title %}
+{{ config.title }}
+{% endblock title %}
+
