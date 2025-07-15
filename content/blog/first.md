@@ -49,6 +49,29 @@ git add
 git commit
 ```
 
+```rust,linenos,name=main.rs,hl_lines=1 3-5 9
+fn main() -> Result<()> {
+  let s = String::new("Albert");
+  println!("Bonjour, {s}");
+  Ok(())
+}
+fn main2() -> Result<()> {
+  let s = String::new("Albert");
+  println!("Bonjour, {s}");
+  Ok(())
+}
+fn main3() -> Result<()> {
+  let s = String::new("Albert");
+  println!("Bonjour, {s}");
+  Ok(())
+}
+fn main4() -> Result<()> {
+  let s = String::new("Albert");
+  println!("Bonjour, {s}");
+  Ok(())
+}
+```
+
 [link](example.com)
 
 <http://example.com>
@@ -75,7 +98,7 @@ asdf
 
 A foot[^1].
 
-[^1]: My reference
+[^1]: My reference with link <http://example.com>
 
 Task:
 
@@ -107,6 +130,59 @@ Task:
 | ----------- | ----------- |
 | Header | Title |
 | Paragraph | Text |
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+asdf
+
+---
+
+$ a^2 + b^2 = c^3 $
+
+$$
+a^2 + b^2 = c^2
+$$
+
+```diff
+## git diff a/test.txt b/test.txt
+diff --git a/a/test.txt b/b/test.txt
+index 309ee57..c995021 100644
+--- a/a/test.txt
++++ b/b/test.txt
+@@ -1,8 +1,6 @@
+-The quick brown fox jumps over the lazy dog
++The quick brown fox jumps over the lazy cat
+
+ a
+-b
+ c
+ d
+-e
+ f
+```
+
+Mon text <kbd>cmd + shift + p</kbd>
+
+<details>
+  <summary>Markdown</summary>
+
+  mon contenut
+
+</details>
+
+asdf
+
+***
+
+asdf
+
+___
+
+qwer
 
 term
 : definition

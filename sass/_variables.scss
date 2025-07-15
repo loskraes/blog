@@ -14,3 +14,17 @@ $container-max-widths: (
   lg: 960px,
   xl: 1140px,
   xxl: 1320px) !default;
+
+
+$color-note: blue;
+$color-tip: green;
+$color-important: purple;
+$color-warning: shade-color(yellow, 40
+);
+$color-caution: red;
+
+$text-note: "Note";
+$text-tip: "Tip";
+$text-important: "Important";
+$text-warning: "Warning";
+$text-caution: "Caution";

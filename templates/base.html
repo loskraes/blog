@@ -104,16 +104,6 @@ vim: ft=htmldjango
           {% block about %}{% endblock about %}
         </aside>
         {% block content %}{% endblock content %}
-
-
-        <pre>
-        {% set s = get_section(path="blog/_index.md", metadata_only=true) %}
-
-
-
-        {{ s | json_encode(pretty=true) }}
-        {% set ancestors = [section_page.relative_path, section_page.ancestors] %}
-        </pre>
       </section>
     </div>
     <footer>

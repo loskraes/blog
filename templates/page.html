@@ -49,12 +49,6 @@
 {% endif %}
 {{ page.content | safe }}
 
-<pre>
-{{ page.toc[0].level == 1 | json_encode(pretty=true) }}
-</pre>
 
-<pre>
-{{ page | json_encode(pretty=true) }}
-</pre>
 {% endblock content %}
 

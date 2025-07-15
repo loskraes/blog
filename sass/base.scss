@@ -2,6 +2,17 @@
 @import "variables";
 @import "mixins/breakpoints";
 
+@import "syntax-theme-light";
+
+@each $breakpoint, $maxwidth in $container-max-widths {
+  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    .page {
+      width: $maxwidth;
+    }
+  }
+}
+
+
 body {
   margin: 0;
 }
@@ -70,6 +81,104 @@ footer {
       padding: 0.5rem;
       border-radius: 5px;
     }
+
+    section.footnotes {
+      border-top: solid 1px tint-color(black, 55);
+      color: tint-color(black, 55);
+      font-size: smaller;
+
+      ol.footnotes-list>li>p>a:last-of-type {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+hr {
+  color: tint-color(black, 90);
+  border-style: solid;
+  border-width: 2px;
+}
+
+table {
+  width: 100%;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  border-collapse: collapse;
+
+  td,
+  th {
+    border: solid 1px black;
+    padding: 0.2rem;
+  }
+}
+
+blockquote {
+  padding-left: 2rem;
+  margin-left: 0.5rem;
+  border-left: solid 5px tint-color(black, 90);
+  color: tint-color(black, 40);
+}
+
+blockquote {
+  --alert-color: red;
+}
+
+blockquote.markdown-alert-note {
+  --alert-color: #{$color-note};
+  --alert-text: "#{$text-note}";
+}
+
+blockquote.markdown-alert-tip {
+  --alert-color: #{$color-tip};
+  --alert-text: "#{$text-tip}";
+}
+
+blockquote.markdown-alert-important {
+  --alert-color: #{$color-important};
+  --alert-text: "#{$text-important}";
+}
+
+blockquote.markdown-alert-warning {
+  --alert-color: #{$color-warning};
+  --alert-text: "#{$text-warning}";
+}
+
+blockquote.markdown-alert-caution {
+  --alert-color: #{$color-caution};
+  --alert-text: "#{$text-caution}";
+}
+
+blockquote.markdown-alert-note,
+blockquote.markdown-alert-tip,
+blockquote.markdown-alert-important,
+blockquote.markdown-alert-warning,
+blockquote.markdown-alert-caution {
+  border-color: var(--alert-color);
+  box-shadow: 2px 2px 3px 0px tint-color(black, 50);
+  border-radius: 5px 0px 0px 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+
+  &:before {
+    color: var(--alert-color);
+    font-weight: bolder;
+    font-size: 110%;
+    content: var(--alert-text);
+  }
+}
+
+
+
+dl {
+  dt {
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  dd {
+    margin-left: 1.5rem;
   }
 }
 
@@ -208,11 +317,71 @@ abbr {
 
 }
 
+pre.z-code {
 
-@each $breakpoint, $maxwidth in $container-max-widths {
-  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-    .page {
-      width: $maxwidth;
+  padding: 1rem;
+  margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  td,
+  th {
+    border: none;
+  }
+
+  overflow: auto;
+  border-radius: 5px;
+
+  &[data-name]::before {
+    display: block;
+    content: attr(data-name);
+    margin-bottom: 0.25rem;
+    text-decoration: underline;
+  }
+
+  &[data-name] {
+    padding-top: 0.5rem;
+  }
+
+  &[data-linenos] {
+    //padding-left: 0.5rem;
+  }
+
+  table td {
+    padding: 0;
+  }
+
+
+  table td:nth-of-type(1) {
+    text-align: right;
+    vertical-align: top;
+    user-select: none;
+    color: tint-color(black, 50);
+  }
+
+  table td:nth-of-type(2) {
+    width: 100%;
+
+    &>span,
+    &>mark {
+      padding-left: 0.5rem;
     }
   }
+
+  mark {
+    display: block;
+    background-color: tint-color(yellow, 95);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+}
+
+kbd {
+  border: solid 1px black;
+  border-radius: 3px;
+  padding: 3px;
+  box-shadow: 2px 2px 3px 0px tint-color(black, 50);
 }
