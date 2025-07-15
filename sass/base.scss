@@ -6,8 +6,9 @@ body {
   margin: 0;
 }
 
-header,
-footer {
+body>header,
+body>footer {
+  z-index: 3;
   position: sticky;
   background-color: tint-color(blue, 80);
   box-shadow: 0px -1px 5px 1px tint-color(black, 50);
@@ -60,14 +61,151 @@ footer {
   overflow-x: auto;
 
   section {
-    background-color: tint-color(red, 80);
+    //background-color: tint-color(red, 80);
 
     aside {
       float: right;
       clear: both;
-      background-color: tint-color(green, 80);
+      background-color: tint-color(blue, 93);
+      padding: 0.5rem;
+      border-radius: 5px;
     }
   }
+}
+
+a[rel="author"] {
+
+  &.multiple {
+    padding-right: 0.2em;
+    padding-left: 0.2em;
+  }
+
+  &.mastodon {
+    --sm-icon: url("/social-media/mastodon.svg");
+  }
+
+  &.peertube {
+    --sm-icon: url("/social-media/peertube.svg");
+  }
+
+  &.facebook {
+    --sm-icon: url("/social-media/facebook.svg");
+  }
+
+  &.instagram {
+    --sm-icon: url("/social-media/instagram.svg");
+  }
+
+  &.reddit {
+    --sm-icon: url("/social-media/reddit.svg");
+  }
+
+  &.mail {
+    --sm-icon: url("/social-media/mail.svg");
+  }
+
+  &.facebook,
+  &.instagram,
+  &.mail,
+  &.mastodon,
+  &.peertube,
+  &.reddit {
+    span {
+      display: none;
+    }
+
+
+    &:after {
+      $height: 1.4em;
+      height: $height;
+      width: $height;
+      position: relative;
+      bottom: ($height - 1em) / -1.5;
+      display: inline-block;
+      background: var(--sm-icon) no-repeat;
+      background-size: auto $height;
+      content: "";
+    }
+
+    &.once:after {
+      margin-left: 0.2em;
+    }
+
+  }
+}
+
+a,
+abbr {
+  &[data-license] {}
+
+  &[data-license^="CC0-"],
+  &[data-license^="CC-"] {
+    --license-width: 120;
+    --license-height: 42;
+  }
+
+  &[data-license^="CC0-"] {
+    --license-icon: url("/license/badge/cc-zero.svg");
+  }
+
+  &[data-license^="CC-BY-"] {
+    --license-icon: url("/license/badge/by.svg");
+  }
+
+  &[data-license^="CC-BY-NC-"] {
+    --license-icon: url("/license/badge/by-nc.eu.svg");
+  }
+
+  &[data-license^="CC-BY-NC-ND-"] {
+    --license-icon: url("/license/badge/by-nc-nd.eu.svg");
+  }
+
+  &[data-license^="CC-BY-NC-SA-"] {
+    --license-icon: url("/license/badge/by-nc-sa.eu.svg");
+  }
+
+  &[data-license^="CC-BY-ND-"] {
+    --license-icon: url("/license/badge/by-nd.svg");
+  }
+
+  &[data-license^="CC-BY-SA-"] {
+    --license-icon: url("/license/badge/by-sa.svg");
+  }
+
+  &[data-license^="AGPL-3.0"] {
+    --license-icon: url("/license/badge/AGPLv3_Logo.svg");
+    --license-width: 864;
+    --license-height: 358;
+  }
+
+  &[data-license^="GPL-3.0"] {
+    --license-icon: url("/license/badge/GPLv3_Logo.svg");
+    --license-width: 720;
+    --license-height: 358;
+  }
+
+  &[data-license^="LGPL-3.0"] {
+    --license-icon: url("/license/badge/LGPLv3_Logo.svg");
+    --license-width: 823;
+    --license-height: 358;
+  }
+
+
+  &[data-license]:before {
+    z-index: 2;
+    $height: 1.4em;
+    content: "";
+    position: relative;
+    bottom: ($height - 1em) / -1.5;
+    padding-left: 0.2em;
+    display: inline-block;
+    height: $height;
+    width: calc($height * var(--license-width) / var(--license-height));
+    background: var(--license-icon) no-repeat;
+    background-size: auto $height;
+    //background: url('license/AGPL-3.0-or-later.svg') no-repeat;
+  }
+
 }
 
 

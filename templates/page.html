@@ -26,13 +26,20 @@
   {% endif %}
   {% set license = page.extra.license | default(value=config.extra.default_license) %}
 
-  Écrit le {{ page.date }} par {{ authors | join(sep=" & ") }} <br />
+  Publié le {{ page.date }}<br />
   {% if page.updated %}
-  Modifié le {{ page.updated }} <br />
+  Denière mis à jour le {{ page.updated }} <br />
   {% endif %}
-  License {{ trans(key="license_" ~ license, lang=lang) }} <br />
+  {% if page.extra.license %}
+  © {{ page.year }} par {{ self::authors(ids=authors) }} <br />
+  Sous licence {{ self::spdx(id=page.extra.license) }} <br />
+  {% endif %}
+  {% if page.extra.snippets_license %}
+  Sauf mention contraire, <br />
+  les extraits de code sons sous license <br/> 
+  {{ self::spdx(id=page.extra.snippets_license) }} <br />
+  {% endif %}
   {{ page.word_count }} mots / {{ page.reading_time }} minutes <br />
-  
   {% endblock about %}
 
 {% block content %}

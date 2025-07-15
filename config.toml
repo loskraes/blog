@@ -44,6 +44,9 @@ render_emoji = true
 ## For example, `...` into `…`, `"quote"` into `“curly”` etc
 #smart_punctuation = false
 
+definition_list = true
+github_alerts = true
+
 ## Whether to set decoding="async" and loading="lazy" for all images
 ## When turned on, the alt text must be plain text.
 ## For example, `![xx](...)` is ok but `![*x*x](...)` isn’t ok
@@ -82,7 +85,8 @@ license_cc_by = "CC BY"
 
 copyright_years = "2025"
 default_license = "reserved"
-fediverse_creator."Loskr AES" = ["@loskraes@tooting.ch"]
+fediverse_creator."LoskrAES" = ["@loskraes@tooting.ch"]
+author_links."LoskrAES" = [["mastodon", "https://tooting.ch/@loskraes"]]
 
 mastodon_server = "tooting.ch"
 mastodon_user = "loskraes"

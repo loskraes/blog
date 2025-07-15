@@ -2,7 +2,7 @@
 title = "My second article"
 date = 2025-07-14
 [extra]
-license = "cc_by"
+license = "CC-BY-4.0"
 +++
 # title
 

@@ -2,7 +2,49 @@
 vim: ft=htmldjango
 #}
 {%- macro active(k, set) -%}
-{% if k in set %} active {% endif -%}
+  {% if k in set %} active {% endif -%}
+{% endmacro %}
+{%- macro authors(ids) %}
+  {%- if ids | length == 1 -%}
+    {{ self::author(id=ids.0) -}}
+  {%- else -%}
+    <ul class="authors">
+    {%- for id in ids -%}
+      <li>{{ self::author(id=id) }}</li>
+    {%- endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+{%- macro author(id) %}
+  {% set links = config.extra.author_links[id] %}
+  {% if links | length == 0 %}
+    {{ id }}
+  {% elif links | length == 1 %}
+    <a 
+      rel="author" 
+      href="{{ links.0.1 }}" 
+      class="once {{ links.0.0 }}"
+      title="{{ links.0.0 }}: {{ links.0.1 }}"
+      >{{ id }}</a>
+  {% else %}
+    {{ id }} 
+    {%- for link in links -%}
+      <a 
+        rel="author" 
+        href="{{ link.1 }}" 
+        class="multiple {{ link.0 }}"
+        title="{{ link.0 }}: {{ link.1 }}"
+        ><span>{{ link.0 }}</span></a>
+    {%- endfor -%}
+  {%- endif -%}
+{% endmacro %}
+{%- macro spdx(id) %}
+  {% set license = load_data(url="https://spdx.org/licenses/" ~ id ~ ".json", format="json") %}
+  {% if license.seeAlso.0 %}
+  <a rel="license" target="_blanck" href="{{ license.seeAlso.0 | safe }}" title="{{ license.name }}" data-license="{{ license.licenseId }}">{{ license.licenseId | replace(from="-", to=" ") }}</a>
+  {% else %}
+  <abbr title="{{ license.name }}" data-license="{{ license.licenseId }}">{{ license.licenseId | replace(from="-", to=" ") }}</abbr>
+  {% endif %}
 {% endmacro %}
 {%- set_global langs = [lang] %}
 {%- for lang, _ in config.languages %}
@@ -12,9 +54,9 @@ vim: ft=htmldjango
 {%- set translations = section_page.translations | group_by(attribute="lang") %}
 {%- set root = get_section(path="_index.md", lang=lang) %}
 {%- if section_page.ancestors | length < 2 %}
-{%- set sector = section_page.relative_path %}
+  {%- set sector = section_page.relative_path %}
 {%- else %}
-{%- set sector = section_page.ancestors.1 %}
+  {%- set sector = section_page.ancestors.1 %}
 {%- endif -%}
 <!DOCTYPE html>
 <html lang="fr">
